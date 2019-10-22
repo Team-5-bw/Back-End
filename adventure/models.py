@@ -6,7 +6,9 @@ from rest_framework.authtoken.models import Token
 import uuid
 
 class Room(models.Model):
+    id = models.IntegerField(default=None)
     title = models.CharField(max_length=50, default="DEFAULT TITLE")
+    has_treasure = models.IntegerField(default=0)
     description = models.CharField(max_length=500, default="DEFAULT DESCRIPTION")
     n_to = models.IntegerField(default=0)
     s_to = models.IntegerField(default=0)
@@ -35,18 +37,6 @@ class Room(models.Model):
         return [p.user.username for p in Player.objects.filter(currentRoom=self.id) if p.id != int(currentPlayerID)]
     def playerUUIDs(self, currentPlayerID):
         return [p.uuid for p in Player.objects.filter(currentRoom=self.id) if p.id != int(currentPlayerID)]
-    def __str__(self):
-        return self.title
-    def as_dict(self):
-        return {
-            "title": self.title,
-            "description": self.description,
-            "n_to": self.n_to,
-            "s_to": self.s_to,
-            "e_to": self.e_to,
-            "w_to": self.w_to
-        }
-
 
 
 class Player(models.Model):
