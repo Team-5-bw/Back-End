@@ -35,6 +35,18 @@ class Room(models.Model):
         return [p.user.username for p in Player.objects.filter(currentRoom=self.id) if p.id != int(currentPlayerID)]
     def playerUUIDs(self, currentPlayerID):
         return [p.uuid for p in Player.objects.filter(currentRoom=self.id) if p.id != int(currentPlayerID)]
+    def __str__(self):
+        return self.title
+    def as_dict(self):
+        return {
+            "title": self.title,
+            "description": self.description,
+            "n_to": self.n_to,
+            "s_to": self.s_to,
+            "e_to": self.e_to,
+            "w_to": self.w_to
+        }
+
 
 
 class Player(models.Model):
