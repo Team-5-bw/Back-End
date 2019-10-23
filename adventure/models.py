@@ -8,10 +8,13 @@ import uuid
 class Room(models.Model):
     title = models.CharField(max_length=50, default="DEFAULT TITLE")
     description = models.CharField(max_length=500, default="DEFAULT DESCRIPTION")
+    room_number = models.IntegerField(default=0, unique=True)
+    treasure = models.IntegerField(default=0)
     n_to = models.IntegerField(default=0)
     s_to = models.IntegerField(default=0)
     e_to = models.IntegerField(default=0)
     w_to = models.IntegerField(default=0)
+
     def connectRooms(self, destinationRoom, direction):
         destinationRoomID = destinationRoom.id
         try:
@@ -39,12 +42,15 @@ class Room(models.Model):
         return self.title
     def as_dict(self):
         return {
-            "title": self.title,
+            "title":       self.title,
             "description": self.description,
-            "n_to": self.n_to,
-            "s_to": self.s_to,
-            "e_to": self.e_to,
-            "w_to": self.w_to
+            "n_to":        self.n_to,
+            "s_to":        self.s_to,
+            "e_to":        self.e_to,
+            "w_to":        self.w_to,
+            "id":          self.id,
+            "room_number": self.room_number,
+            "treasure":    self.treasure
         }
 
 
