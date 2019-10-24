@@ -21,7 +21,7 @@ for room in rooms_store:
                              room_number=room
                              )
     if room == treasure_room:
-        rooms_store[room].has_treasure = 1
+        rooms_store[room].treasure = 1
     rooms_store[room].save()
 
 directions = ['n', 's', 'e', 'w']
