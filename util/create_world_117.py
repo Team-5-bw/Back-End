@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from adventure.models import Player, Room
 import csv
+from names_and_descriptions import ndGenerator
 from random import choice
 
 Room.objects.all().delete()
@@ -32,12 +33,13 @@ for connect in map_arr:
         if con is not None:
             rooms_store[connect[0]].connectRooms(rooms_store[con], dir)
 
-rooms_store[1].addName('Entrance')
-rooms_store[1].setDescription('You find yourself in a well lit but empty chamber.')
+rooms_store[1].setDescription('Entrance. You find yourself in a well lit but empty chamber.')
 for room in rooms_store:
     if room != 1:
-        rooms_store[room].addName("Temporary Name")
-        rooms_store[room].setDescription("Temporary Description")
+        gen = ndGenerator(rooms_store[room])
+        rooms_store[room].setDescription(gen.get_combined())
+
+
 
 
 
