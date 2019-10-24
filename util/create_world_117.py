@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from adventure.models import Player, Room
 import csv
-from random import randint
+from random import choice
 
 Room.objects.all().delete()
 
@@ -13,14 +13,15 @@ with open('map.csv') as map_f:
         map_arr.append([int(x) if x != '' else None for x in line])
 
 rooms_store = {rnum: 0 for rnum in list(range(1, len(map_arr) + 1))}
-#treasure_room = randint(3, len(map_arr))
+#treasure_room = choice([50, 59, 108, 93, 79, 82, 71, 51])
+treasure_room = 51
 
 for room in rooms_store:
     rooms_store[room] = Room(title=f"room_{room}",
                              room_number=room
                              )
-#    if room == treasure_room:
-#        rooms_store[room].has_treasure = 2
+    if room == treasure_room:
+        rooms_store[room].has_treasure = 1
     rooms_store[room].save()
 
 directions = ['n', 's', 'e', 'w']
