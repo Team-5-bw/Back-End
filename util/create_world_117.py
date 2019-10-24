@@ -32,6 +32,13 @@ for connect in map_arr:
         if con is not None:
             rooms_store[connect[0]].connectRooms(rooms_store[con], dir)
 
+rooms_store[1].addName('Entrance')
+rooms_store[1].setDescription('You find yourself in a well lit but empty chamber.')
+for room in rooms_store:
+    if room != 1:
+        rooms_store[room].addName("Temporary Name")
+        rooms_store[room].setDescription("Temporary Description")
+
 
 
 players = Player.objects.all()
