@@ -67,12 +67,12 @@ class Player(models.Model):
 
     def initialize(self):
         if self.currentRoom == 0:
-            self.currentRoom = Room.objects.first().id
+            self.currentRoom = Room.objects.first().room_number
             self.save()
 
     def room(self):
         try:
-            return Room.objects.get(id=self.currentRoom)
+            return Room.objects.get(room_number=self.currentRoom)
         except Room.DoesNotExist:
             self.initialize()
             return self.room()
