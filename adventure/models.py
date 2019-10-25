@@ -17,6 +17,28 @@ class Room(models.Model):
     e_to = models.IntegerField(default=0)
     w_to = models.IntegerField(default=0)
 
+    def setDescription(self, room_describe):
+        doors = []
+        if self.n_to != 0:
+            doors.append("north")
+        if self.s_to != 0:
+            doors.append("south")
+        if self.e_to != 0:
+            doors.append("east")
+        if self.w_to != 0:
+            doors.append("west")
+        if len(doors) == 1:
+            add_describe = f" There is a door leading to the {doors[0]}"
+        elif len(doors) > 1:
+            add_describe = f" There are doors leading "
+            for door in doors[:-1]:
+                add_describe = str(add_describe + door + ", ")
+                add_describe = str(add_describe + 'and ' + doors[-1] + '.')
+        else:
+            add_describe = "You are stuck, there are no exits to this room"
+        self.description = room_describe + "\n" + add_describe
+        self.save()
+
     def connectRooms(self, destinationRoom, direction):
         destinationRoomID = destinationRoom.room_number
         try:
